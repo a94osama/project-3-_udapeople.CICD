@@ -2,7 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { ConfigService } from './modules/config/config.service';
 import { ValidationPipe } from '@nestjs/common';
-import { AppModule } from './app.module';
+import { AppModule } from './modules/app/app.module';
 import { AppLogger } from './modules/app/app.logger';
 import { ExpressAdapter } from '@nestjs/platform-express';
 import * as cors from 'cors';
