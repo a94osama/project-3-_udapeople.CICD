@@ -214,7 +214,7 @@ jobs: #now we will bbuild our jobs
       - attach_workspace:
           at: ~/
       - add_ssh_keys:
-          fingerprints: ["f8:90:86:da:c9:69:28:c3:ef:61:2a:f5:d8:a5:cc:2e"]
+          fingerprints: ["35:88:9d:00:4e:e3:fb:16:5c:45:6e:c9:5d:6a:9e:24"]
       - run:
           name: Install dependencies
           command: |
