@@ -2,7 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { ConfigService } from './modules/config/config.service';
 import { ValidationPipe } from '@nestjs/common';
-import { AppModule } from './modules/app/app.module';
+import { AppModule } from './app.module';
 import { AppLogger } from './modules/app/app.logger';
 import { ExpressAdapter } from '@nestjs/platform-express';
 import * as cors from 'cors';
@@ -10,14 +10,15 @@ import { TransformInterceptor } from './modules/common/interceptors/TransformInt
 import * as express from 'express';
 import { ErrorFilter } from './modules/errors/error.filter';
 
+
+
 async function bootstrap() {
   const logger = new AppLogger();
   logger.info(`NodeJs Version ${process.version}`);
   logger.info(JSON.stringify(process.env));
   const server = express();
-  const app = await NestFactory.create(AppModule, new ExpressAdapter(server), {
-    logger,
-  });
+  const app = await NestFactory.create(AppModule, { cors: true });
+  
   app.useGlobalPipes(new ValidationPipe({ transform: true, whitelist: true }));
   const apiVersionPrefix: string = process.env.API_VERSION || 'api';
   app.setGlobalPrefix(apiVersionPrefix);
@@ -47,7 +48,7 @@ async function bootstrap() {
   };
   app.use(cors(corsOptions));
   app.useGlobalFilters(new ErrorFilter());
-  await app.listen(config.PORT);
+  await app.listen(3000);
   logger.log(`Listening on port ${config.PORT}.`);
 }
 
